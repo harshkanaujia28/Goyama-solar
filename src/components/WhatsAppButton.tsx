@@ -1,7 +1,7 @@
 import { MessageCircle } from "lucide-react";
 
 export function WhatsAppButton() {
-  const phoneNumber = "919876543210";
+  const phoneNumber = "9194666 66257";
   const message = "Hi! I'm interested in solar installation. Please provide more details.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 

@@ -32,7 +32,7 @@ const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
         {/* Large Video */}
         <motion.video
           className="w-[380px] sm:w-[520px] md:w-[700px] lg:w-[900px] xl:w-[1100px] object-contain"
-          src="/sunrise-intro.tmp"
+          src="/rise.mp4"
           autoPlay
           muted
           playsInline
