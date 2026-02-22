@@ -1,116 +1,57 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import GoyamaLogo from "./GoyamaLogo";
 
 const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
-  const [phase, setPhase] = useState<"white" | "logo" | "sunrise" | "done">("white");
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
-    // Check session storage
     if (sessionStorage.getItem("intro-seen")) {
       onComplete();
       return;
     }
 
-    const t1 = setTimeout(() => setPhase("logo"), 300);
-    const t2 = setTimeout(() => setPhase("sunrise"), 1100);
-    const t3 = setTimeout(() => {
-      setPhase("done");
+    const timer = setTimeout(() => {
       sessionStorage.setItem("intro-seen", "1");
-      setTimeout(onComplete, 600);
-    }, 3600);
+      setShow(false);
+      setTimeout(onComplete, 500);
+    }, 4000);
 
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-    };
+    return () => clearTimeout(timer);
   }, [onComplete]);
 
-  if (sessionStorage.getItem("intro-seen")) return null;
-
-  const rays = Array.from({ length: 12 }, (_, i) => i);
+  if (!show) return null;
 
   return (
     <AnimatePresence>
-      {phase !== "done" ? (
-        <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
-          style={{ backgroundColor: "hsl(0, 0%, 100%)" }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+      <motion.div
+        className="fixed inset-0 z-[999] flex items-center justify-center bg-white"
+        initial={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        {/* Large Video */}
+        <motion.video
+          className="w-[380px] sm:w-[520px] md:w-[700px] lg:w-[900px] xl:w-[1100px] object-contain"
+          src="/sunrise-intro.tmp"
+          autoPlay
+          muted
+          playsInline
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+        />
+
+        {/* Skip Button */}
+        <button
+          className="absolute bottom-6 right-6 text-sm text-gray-500 hover:text-black transition-colors"
+          onClick={() => {
+            sessionStorage.setItem("intro-seen", "1");
+            onComplete();
+          }}
         >
-          {/* Sunrise glow */}
-          {(phase === "sunrise") && (
-            <motion.div
-              className="absolute bottom-0 left-1/2 -translate-x-1/2"
-              initial={{ width: 0, height: 0, opacity: 0 }}
-              animate={{ width: "200vw", height: "200vh", opacity: 0.6 }}
-              transition={{ duration: 2.5, ease: "easeOut" }}
-            >
-              <div className="w-full h-full intro-sunrise" />
-            </motion.div>
-          )}
-
-          {/* Rays */}
-          {phase === "sunrise" && rays.map((i) => (
-            <motion.div
-              key={i}
-              className="absolute bottom-0 left-1/2 origin-bottom"
-              style={{
-                width: "2px",
-                height: "100vh",
-                rotate: `${i * 30 - 165}deg`,
-                background: `linear-gradient(to top, hsl(37, 100%, 50%), transparent)`,
-              }}
-              initial={{ scaleY: 0, opacity: 0 }}
-              animate={{ scaleY: 1, opacity: 0.15 }}
-              transition={{ duration: 1.2, delay: 0.3 + i * 0.1, ease: "easeOut" }}
-            />
-          ))}
-
-          {/* Logo */}
-          {phase !== "white" && (
-            <motion.div
-              initial={{ opacity: 0, scale: 1 }}
-              animate={
-                phase === "sunrise"
-                  ? { opacity: 1, scale: 0.7, y: -200 }
-                  : { opacity: 1, scale: 1 }
-              }
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="relative z-10"
-            >
-             <GoyamaLogo className="w-[320px] sm:w-[420px] md:w-[520px] lg:w-[600px]" />
-            </motion.div>
-          )}
-
-          {/* Skip button */}
-          <motion.button
-            className="absolute bottom-6 right-6 text-sm font-body text-muted-foreground hover:text-foreground transition-colors z-20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            onClick={() => {
-              sessionStorage.setItem("intro-seen", "1");
-              onComplete();
-            }}
-          >
-            Skip
-          </motion.button>
-
-          {/* Flash overlay */}
-          {phase === "sunrise" && (
-            <motion.div
-              className="absolute inset-0 z-20 pointer-events-none"
-              style={{ backgroundColor: "hsl(37, 100%, 50%)" }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 0, 0.15, 0] }}
-              transition={{ duration: 2.5, times: [0, 0.8, 0.9, 1] }}
-            />
-          )}
-        </motion.div>
-      ) : null}
+          Skip
+        </button>
+      </motion.div>
     </AnimatePresence>
   );
 };
