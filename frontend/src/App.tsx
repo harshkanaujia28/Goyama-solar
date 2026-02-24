@@ -3,7 +3,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 
 import IntroAnimation from "./components/IntroAnimation";
 import Layout from "./components/Layout";
@@ -18,36 +23,46 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+/* ---------------- AppRoutes ---------------- */
+
 function AppRoutes() {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-  // First page load
+  // First load animation
   useEffect(() => {
-    const handleLoad = () => setLoading(false);
+    const handleLoad = () => {
+      setTimeout(() => {
+        setLoading(false);
+        setIsFirstLoad(false);
+      }, 4000); // 🔥 match your real video duration
+    };
 
     if (document.readyState === "complete") {
-      setLoading(false);
+      handleLoad();
     } else {
       window.addEventListener("load", handleLoad);
       return () => window.removeEventListener("load", handleLoad);
     }
   }, []);
 
-  // Route change loading simulation
+  // Route change animation (skip first render)
   useEffect(() => {
+    if (isFirstLoad) return;
+
     setLoading(true);
 
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 4000); // how long animation shows during route change
+    }, 4000); // 🔥 match video duration
 
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
   return (
     <>
-      {loading && <IntroAnimation />}
+      <IntroAnimation visible={loading} />
 
       <Layout>
         <Routes location={location}>
@@ -64,6 +79,8 @@ function AppRoutes() {
     </>
   );
 }
+
+/* ---------------- App ---------------- */
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

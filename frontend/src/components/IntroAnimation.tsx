@@ -1,24 +1,13 @@
-import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLocation } from "react-router-dom";
 
-const IntroAnimation = () => {
-  const location = useLocation();
-  const [show, setShow] = useState(false);
+interface Props {
+  visible: boolean;
+}
 
-  useEffect(() => {
-    setShow(true);
-
-    const timer = setTimeout(() => {
-      setShow(false);
-    },4000); // match video duration
-
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
-
+const IntroAnimation = ({ visible }: Props) => {
   return (
     <AnimatePresence>
-      {show && (
+      {visible && (
         <motion.div
           className="fixed inset-0 z-[999] flex items-center justify-center bg-white"
           initial={{ opacity: 1 }}
