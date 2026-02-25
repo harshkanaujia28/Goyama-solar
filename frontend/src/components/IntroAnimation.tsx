@@ -15,8 +15,8 @@ const IntroAnimation = ({ visible }: Props) => {
           transition={{ duration: 0.8 }}
         >
           <motion.video
-            className="w-[420px] sm:w-[600px] md:w-[800px] lg:w-[1000px] xl:w-[1200px] object-contain"
-            src="/rays.mp4"
+            className="w-[280px] sm:w-[380px] md:w-[500px] lg:w-[600px] xl:w-[700px] max-w-[90vw] object-contain"
+            src="/goyama-rays 1.mp4"
             autoPlay
             muted
             playsInline

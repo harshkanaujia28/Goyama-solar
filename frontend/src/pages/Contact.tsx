@@ -24,10 +24,13 @@ const Contact = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", company: "", phone: "", email: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const result = contactSchema.safeParse(form);
+
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
       result.error.issues.forEach((issue) => {
@@ -36,11 +39,50 @@ const Contact = () => {
       setErrors(fieldErrors);
       return;
     }
-    setErrors({});
-    toast({ title: "Inquiry Submitted", description: "We'll get back to you within 24 hours." });
-    setForm({ name: "", company: "", phone: "", email: "", message: "" });
-  };
 
+    setErrors({});
+    setLoading(true);
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/contact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
+
+      toast({
+        title: "Inquiry Submitted",
+        description: "We'll get back to you within 24 hours.",
+      });
+
+      setForm({
+        name: "",
+        company: "",
+        phone: "",
+        email: "",
+        message: "",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Submission Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
   const inputClass = (field: string) =>
     `w-full px-4 py-3 rounded-lg border ${errors[field] ? "border-destructive" : "border-border"} bg-background text-foreground focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-colors`;
 
@@ -89,7 +131,7 @@ const Contact = () => {
               {/* Google Maps */}
               <div className="mt-8 rounded-xl overflow-hidden border border-border h-[280px]">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27713.38!2d76.93!3d29.68!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e6f!2sManek%2C+Haryana!5e0!3m2!1sen!2sin!4v1"
+                  src="https://www.google.com/maps?q=29.502909,76.8680218&hl=en&z=17&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -102,39 +144,84 @@ const Contact = () => {
 
             {/* Form */}
             <motion.div {...fadeUp} transition={{ delay: 0.2 }}>
-              <form onSubmit={handleSubmit} className="bg-section-alt p-8 md:p-10 rounded-2xl space-y-5">
+              <form
+                onSubmit={handleSubmit}
+                className="bg-section-alt p-8 md:p-10 rounded-2xl space-y-5"
+              >
                 <h3 className="heading-md mb-2">Send an Inquiry</h3>
                 <div className="divider-orange mb-6" />
 
                 <div>
                   <label className="text-sm font-medium mb-1.5 block">Name *</label>
-                  <input className={inputClass("name")} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Your full name" />
-                  {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
+                  <input
+                    className={inputClass("name")}
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    placeholder="Your full name"
+                  />
+                  {errors.name && (
+                    <p className="text-xs text-destructive mt-1">{errors.name}</p>
+                  )}
                 </div>
+
                 <div>
                   <label className="text-sm font-medium mb-1.5 block">Company</label>
-                  <input className={inputClass("company")} value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} placeholder="Company name" />
+                  <input
+                    className={inputClass("company")}
+                    value={form.company}
+                    onChange={(e) => setForm({ ...form, company: e.target.value })}
+                    placeholder="Company name"
+                  />
                 </div>
+
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label className="text-sm font-medium mb-1.5 block">Phone *</label>
-                    <input className={inputClass("phone")} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="+91-XXXXXXXXXX" />
-                    {errors.phone && <p className="text-xs text-destructive mt-1">{errors.phone}</p>}
+                    <input
+                      className={inputClass("phone")}
+                      value={form.phone}
+                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                      placeholder="+91-XXXXXXXXXX"
+                    />
+                    {errors.phone && (
+                      <p className="text-xs text-destructive mt-1">{errors.phone}</p>
+                    )}
                   </div>
+
                   <div>
                     <label className="text-sm font-medium mb-1.5 block">Email *</label>
-                    <input className={inputClass("email")} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="you@company.com" />
-                    {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
+                    <input
+                      className={inputClass("email")}
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      placeholder="you@company.com"
+                    />
+                    {errors.email && (
+                      <p className="text-xs text-destructive mt-1">{errors.email}</p>
+                    )}
                   </div>
                 </div>
+
                 <div>
                   <label className="text-sm font-medium mb-1.5 block">Message *</label>
-                  <textarea className={`${inputClass("message")} min-h-[120px] resize-y`} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Tell us about your requirements..." />
-                  {errors.message && <p className="text-xs text-destructive mt-1">{errors.message}</p>}
+                  <textarea
+                    className={`${inputClass("message")} min-h-[120px] resize-y`}
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    placeholder="Tell us about your requirements..."
+                  />
+                  {errors.message && (
+                    <p className="text-xs text-destructive mt-1">{errors.message}</p>
+                  )}
                 </div>
-                <button type="submit" className="w-full gradient-bg text-primary-foreground py-3.5 rounded-lg font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full gradient-bg text-primary-foreground py-3.5 rounded-lg font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-70"
+                >
                   <Send size={18} />
-                  Submit Inquiry
+                  {loading ? "Sending..." : "Submit Inquiry"}
                 </button>
               </form>
             </motion.div>
