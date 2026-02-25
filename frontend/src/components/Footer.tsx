@@ -94,7 +94,7 @@ const Footer = () => (
             <li className="flex items-start gap-3">
               <MapPin size={16} className="mt-1 shrink-0 text-primary" />
               <span className="opacity-70">
-                Munak, District Karnal, Haryana - 132040
+               Khewat No-112, Kohand to Assandh Road, VPO Munak, District Karnal, Haryana, India- 132040
               </span>
             </li>
 

@@ -37,15 +37,56 @@ const sendContactEmail = async (data) => {
     });
 
     // Auto reply
-    await sgMail.send({
-      to: safeData.email,
-      from: "info@goyamasolar.com",
-      subject: "Thank You for Contacting Us",
-      html: `
-        <p>Thank you ${safeData.name},</p>
-        <p>We received your inquiry and will respond within 24 hours.</p>
-      `,
-    });
+  await sgMail.send({
+  to: safeData.email,
+  from: "info@goyamasolar.com",
+  subject: "Thank You for Contacting Goyama Solar",
+  html: `
+    <div style="font-family: Arial, sans-serif; line-height:1.6; color:#333;">
+      
+      <p>Dear ${safeData.name},</p>
+
+      <p>
+        Thank you for contacting <strong>Goyama Solar</strong>.
+        We have received your inquiry successfully.
+      </p>
+
+      <p>
+        Our team will review your request and get back to you within 
+        <strong>24 working hours</strong>.
+      </p>
+
+      <p>
+        If your requirement is urgent, please feel free to contact us directly.
+      </p>
+
+      <br/>
+
+      <!-- Signature Section -->
+      <div style="border-top:1px solid #e5e5e5; padding-top:15px; margin-top:20px;">
+        
+        <img 
+          src="https://goyama-solar-l98d.vercel.app/logo.png" 
+          alt="Goyama Solar Logo" 
+          style="max-width:160px; margin-bottom:10px;"
+        />
+
+        <p style="margin:5px 0;">
+          📞 +91-9466666257 | +91-9896684435
+        </p>
+
+        <p style="margin:5px 0;">
+          ✉ info@goyamasolar.com
+        </p>
+
+        <p style="margin:5px 0;">
+          🌐 www.goyamasolar.com
+        </p>
+
+      </div>
+    </div>
+  `,
+});
 
     return { success: true };
   } catch (error) {

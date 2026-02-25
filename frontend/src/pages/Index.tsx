@@ -22,7 +22,7 @@ const featureCards = [
 ];
 
 const products = [
-  { title: "Solar Modules", desc: "High-efficiency monocrystalline and polycrystalline modules", img: solarPanel },
+  { title: "Solar Modules", desc: "High efficiency N-type TOPCon G12R and M10R modules", img: solarPanel },
   { title: "Industrial Components", desc: "Premium solar components for large-scale installations", img: solarPanel },
   { title: "High-Efficiency Panels", desc: "Next-generation panels with industry-leading performance", img: solarPanel },
 ];
@@ -205,7 +205,11 @@ const Index = () => {
         <div className="container-section">
           <SectionHeading title="Why Choose Goyama Solar" highlight="Goyama Solar" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <AnimatedCounter target={300000} label="sq ft Facility" />
+            <AnimatedCounter
+              target={1}
+              suffix=" GW"
+              label="Annual Production Capacity"
+            />
             <AnimatedCounter target={100} suffix="%" label="Advanced Automation" />
             <AnimatedCounter target={2025} label="Year Established" />
             <AnimatedCounter target={24} suffix="/7" label="Quality Monitoring" />
