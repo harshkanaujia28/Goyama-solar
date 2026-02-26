@@ -64,33 +64,81 @@ const sendContactEmail = async (data) => {
     <strong>Goyama Solar</strong>
   </p>
 
-  <div style="margin-top:30px; border-top:3px solid #f37021; padding-top:20px;">
+<table cellpadding="0" cellspacing="0" 
+       style="margin-top:35px; padding-top:20px; border-top:2px solid #f37021; font-family: Arial, sans-serif;">
 
-    <img 
-      src="https://goyama-solar-l98d.vercel.app/goyama.png" 
-      alt="Goyama Solar Logo" 
-      style="max-width:170px; display:block; margin-bottom:15px;"
-    />
+  <tr>
 
-    <p style="margin:6px 0; font-size:14px;">
-      +91-9466666257 | +91-9896684435
-    </p>
+    <!-- LEFT: LOGO -->
+    <td style="vertical-align:top; padding-right:30px;">
+      <img 
+        src="https://goyama-solar-l98d.vercel.app/goyama.png" 
+        alt="Goyama Solar Logo" 
+        style="max-width:150px; display:block;"
+      />
+    </td>
 
-    <p style="margin:6px 0; font-size:14px;">
-      <a href="mailto:info@goyamasolar.com" style="color:#f37021; text-decoration:none;">
-        info@goyamasolar.com
-      </a>
-    </p>
+    <!-- ORANGE DIVIDER -->
+    <td style="width:2px; background:#cfcfcf;"></td>
 
-    <p style="margin:6px 0; font-size:14px;">
-      <a href="https://www.goyamasolar.com" style="color:#f37021; text-decoration:none;">
-        www.goyamasolar.com
-      </a>
-    </p>
+    <!-- RIGHT SIDE -->
+    <td style="vertical-align:top; padding-left:30px; font-size:14px; line-height:1.8;">
 
-  </div>
+      <p style="margin:0 0 12px 0; font-size:17px; font-weight:700; color:#333;">
+        GOYAMA SOLAR
+      </p>
 
-</div>
+      <table cellpadding="0" cellspacing="0">
+
+        <!-- PHONE -->
+        <tr>
+          <td style="padding-right:8px; vertical-align:middle;">
+            <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png"
+                 width="14" height="14"
+                 style="display:block; filter:brightness(0);" />
+          </td>
+          <td style="color:#f37021;">
+            +91 9466666257 | +91 9896684435
+          </td>
+        </tr>
+
+        <!-- EMAIL -->
+        <tr>
+          <td style="padding-right:8px; vertical-align:middle;">
+            <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png"
+                 width="14" height="14"
+                 style="display:block; filter:brightness(0);" />
+          </td>
+          <td>
+            <a href="mailto:info@goyamasolar.com"
+               style="color:#f37021; text-decoration:none;">
+              info@goyamasolar.com
+            </a>
+          </td>
+        </tr>
+
+        <!-- WEBSITE -->
+        <tr>
+          <td style="padding-right:8px; vertical-align:middle;">
+            <img src="https://cdn-icons-png.flaticon.com/512/535/535239.png"
+                 width="14" height="14"
+                 style="display:block; filter:brightness(0);" />
+          </td>
+          <td>
+            <a href="https://www.goyamasolar.com"
+               style="color:#f37021; text-decoration:none;">
+              www.goyamasolar.com
+            </a>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+
+  </tr>
+
+</table>
 `,
     });
     return { success: true };
