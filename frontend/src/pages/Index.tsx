@@ -205,11 +205,17 @@ const Index = () => {
         <div className="container-section">
           <SectionHeading title="Why Choose Goyama Solar" highlight="Goyama Solar" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <AnimatedCounter
-              target={1}
-              suffix=" GW"
-              label="Annual Production Capacity"
-            />
+           <div className="text-center">
+  {/* Number */}
+  <div className="text-5xl md:text-6xl font-bold text-orange-500 leading-tight">
+    1<span className="ml-1">GW</span>
+  </div>
+
+  {/* Label */}
+  <p className="mt-2 text-sm md:text-base text-gray-600">
+    Annual Production Capacity
+  </p>
+</div>
             <AnimatedCounter target={100} suffix="%" label="Advanced Automation" />
             <AnimatedCounter target={2025} label="Year Established" />
             <AnimatedCounter target={24} suffix="/7" label="Quality Monitoring" />

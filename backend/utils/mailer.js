@@ -36,58 +36,63 @@ const sendContactEmail = async (data) => {
       `,
     });
 
-    // Auto reply
-  await sgMail.send({
-  to: safeData.email,
-  from: "info@goyamasolar.com",
-  subject: "Thank You for Contacting Goyama Solar",
-  html: `
-    <div style="font-family: Arial, sans-serif; line-height:1.6; color:#333;">
-      
-      <p>Dear ${safeData.name},</p>
+    await sgMail.send({
+      to: safeData.email,
+      from: "info@goyamasolar.com",
+      subject: "Inquiry Received – Goyama Solar",
+      html: `
+<div style="font-family: Arial, sans-serif; color:#333; padding:20px;">
 
-      <p>
-        Thank you for contacting <strong>Goyama Solar</strong>.
-        We have received your inquiry successfully.
-      </p>
+  <p style="font-size:16px;">Dear ${safeData.name},</p>
 
-      <p>
-        Our team will review your request and get back to you within 
-        <strong>24 working hours</strong>.
-      </p>
+  <p style="font-size:15px; line-height:1.6;">
+    Thank you for your interest in <strong>Goyama Solar modules</strong>.
+  </p>
 
-      <p>
-        If your requirement is urgent, please feel free to contact us directly.
-      </p>
+  <p style="font-size:15px; line-height:1.6;">
+    We have received your inquiry successfully, and our team will share 
+    detailed specifications and pricing information within 
+    <strong>24 working hours</strong>.
+  </p>
 
-      <br/>
+  <p style="font-size:15px; line-height:1.6;">
+    We appreciate the opportunity to support your requirements and look forward to assisting you.
+  </p>
 
-      <!-- Signature Section -->
-      <div style="border-top:1px solid #e5e5e5; padding-top:15px; margin-top:20px;">
-        
-        <img 
-          src="https://goyama-solar-l98d.vercel.app/logo.png" 
-          alt="Goyama Solar Logo" 
-          style="max-width:160px; margin-bottom:10px;"
-        />
+  <p style="margin-top:25px; font-size:15px;">
+    Best regards,<br/>
+    <strong>Goyama Solar</strong>
+  </p>
 
-        <p style="margin:5px 0;">
-          📞 +91-9466666257 | +91-9896684435
-        </p>
+  <div style="margin-top:30px; border-top:3px solid #f37021; padding-top:20px;">
 
-        <p style="margin:5px 0;">
-          ✉ info@goyamasolar.com
-        </p>
+    <img 
+      src="https://goyama-solar-l98d.vercel.app/goyama.png" 
+      alt="Goyama Solar Logo" 
+      style="max-width:170px; display:block; margin-bottom:15px;"
+    />
 
-        <p style="margin:5px 0;">
-          🌐 www.goyamasolar.com
-        </p>
+    <p style="margin:6px 0; font-size:14px;">
+      +91-9466666257 | +91-9896684435
+    </p>
 
-      </div>
-    </div>
-  `,
-});
+    <p style="margin:6px 0; font-size:14px;">
+      <a href="mailto:info@goyamasolar.com" style="color:#f37021; text-decoration:none;">
+        info@goyamasolar.com
+      </a>
+    </p>
 
+    <p style="margin:6px 0; font-size:14px;">
+      <a href="https://www.goyamasolar.com" style="color:#f37021; text-decoration:none;">
+        www.goyamasolar.com
+      </a>
+    </p>
+
+  </div>
+
+</div>
+`,
+    });
     return { success: true };
   } catch (error) {
     console.error("SendGrid Error:", error.response?.body || error);

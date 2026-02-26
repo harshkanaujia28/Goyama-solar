@@ -29,7 +29,7 @@ const Footer = () => (
 
           <div className="mt-6 flex items-center gap-4">
             <a
-              href="https://facebook.com/yourpage"
+              href="https://www.facebook.com/share/1BtXkbbMJe/?mibextid=wwXIfr"
               target="_blank"
               rel="noopener noreferrer"
               className="opacity-70 hover:opacity-100 hover:text-primary transition-all"
@@ -38,7 +38,7 @@ const Footer = () => (
             </a>
 
             <a
-              href="https://instagram.com/yourpage"
+              href="https://www.instagram.com/goyamasolar?igsh=MXJlcXAzdjY1MjBydw%3D%3D&utm_source=qr"
               target="_blank"
               rel="noopener noreferrer"
               className="opacity-70 hover:opacity-100 hover:text-primary transition-all"
@@ -47,7 +47,7 @@ const Footer = () => (
             </a>
 
             <a
-              href="https://linkedin.com/company/yourpage"
+              href="https://www.linkedin.com/company/goyama-solar/"
               target="_blank"
               rel="noopener noreferrer"
               className="opacity-70 hover:opacity-100 hover:text-primary transition-all"

@@ -111,7 +111,7 @@ const Contact = () => {
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <MapPin className="text-primary mt-0.5 shrink-0" size={20} />
-                    <span className="text-muted-foreground">Munak, District Karnal, Haryana - 132040, India</span>
+                    <span className="text-muted-foreground">Khewat No-112, Kohand to Assandh Road, VPO Munak, District Karnal, Haryana, India- 132040</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail className="text-primary shrink-0" size={20} />
