@@ -116,13 +116,23 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-background p-8 rounded-xl border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                className="bg-background p-8 rounded-xl border border-border hover:shadow-md transition-all duration-300 relative"
               >
-                <div className="w-12 h-12 rounded-lg gradient-bg flex items-center justify-center mb-5">
-                  <card.icon className="text-primary-foreground" size={22} />
+                {/* Left Accent Line */}
+                <div className="absolute left-0 top-0 h-full w-1 bg-primary rounded-l-xl" />
+
+                {/* Icon */}
+                <div className="mb-5 text-primary">
+                  <card.icon size={30} strokeWidth={1.5} />
                 </div>
-                <h3 className="font-display font-semibold text-lg mb-2">{card.title}</h3>
-                <p className="text-sm text-muted-foreground">{card.desc}</p>
+
+                <h3 className="font-display font-semibold text-lg mb-2">
+                  {card.title}
+                </h3>
+
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {card.desc}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -205,17 +215,17 @@ const Index = () => {
         <div className="container-section">
           <SectionHeading title="Why Choose Goyama Solar" highlight="Goyama Solar" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-           <div className="text-center">
-  {/* Number */}
-  <div className="text-5xl md:text-6xl font-bold text-orange-500 leading-tight">
-    1<span className="ml-1">GW</span>
-  </div>
+            <div className="text-center">
+              {/* Number */}
+              <div className="text-5xl md:text-6xl font-bold text-orange-500 leading-tight">
+                1<span className="ml-1">GW</span>
+              </div>
 
-  {/* Label */}
-  <p className="mt-2 text-sm md:text-base text-gray-600">
-    Annual Production Capacity
-  </p>
-</div>
+              {/* Label */}
+              <p className="mt-2 text-sm md:text-base text-gray-600">
+                Annual Production Capacity
+              </p>
+            </div>
             <AnimatedCounter target={100} suffix="%" label="Advanced Automation" />
             <AnimatedCounter target={2025} label="Year Established" />
             <AnimatedCounter target={24} suffix="/7" label="Quality Monitoring" />
