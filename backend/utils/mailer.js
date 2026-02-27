@@ -72,7 +72,7 @@ const sendContactEmail = async (data) => {
     <!-- LEFT: LOGO -->
     <td style="vertical-align:top; padding-right:30px;">
       <img 
-        src="https://goyama-solar-l98d.vercel.app/goyama.png" 
+        src="https://www.goyamasolar.com/goyama.png" 
         alt="Goyama Solar Logo" 
         style="max-width:150px; display:block;"
       />
