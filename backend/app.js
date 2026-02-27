@@ -27,6 +27,7 @@ const allowedOrigins = [
   "http://localhost:8080",
   "http://localhost:5173",
   process.env.CLIENT_URL,
+  process.env.CLIENT_URL_WWW,
 ].filter(Boolean);
 
 app.use(
@@ -41,7 +42,7 @@ app.use(
         return callback(null, true);
       }
 
-      return callback(new Error("CORS Not Allowed"));
+      return callback(new Error("CORS Not Allowed: " + origin));
     },
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
