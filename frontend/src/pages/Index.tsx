@@ -33,7 +33,7 @@ const Index = () => {
       {/* Hero */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroSunrise} alt="Solar farm at sunrise" className="w-full h-full object-cover" loading="eager" />
+          <img src={heroSunrise} alt="solar panel installation project in India" className="w-full h-full object-cover" loading="eager" />
           <div className="absolute inset-0 bg-foreground/60" />
           {/* Sun rays watermark */}
           <div className="absolute inset-0 opacity-10" style={{
@@ -58,7 +58,7 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="body-lg text-background/80 mt-6 max-w-2xl"
             >
-              High-performance solar modules engineered for durability, efficiency, and scale.
+             Leading solar panel manufacturer and rooftop solar installation company in India providing solutions for homes, businesses, and industries.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -67,15 +67,16 @@ const Index = () => {
               className="flex flex-wrap gap-4 mt-8"
             >
               <Link to="/products" className="gradient-bg text-primary-foreground px-8 py-3.5 rounded-lg font-semibold hover:opacity-90 transition-opacity">
-                Explore Products
+                Explore Solar Products
               </Link>
               <Link to="/contact" className="border border-background/30 text-background px-8 py-3.5 rounded-lg font-semibold hover:bg-background/10 transition-colors">
-                Contact Us
+                Get Solar Quote
               </Link>
             </motion.div>
           </div>
         </div>
       </section>
+      
 
       {/* Who We Are */}
       <section className="section-padding">
