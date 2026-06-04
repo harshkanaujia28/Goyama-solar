@@ -12,18 +12,28 @@ const contactSchema = z.object({
   message: z.string().min(1).max(2000),
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", async (req, res) => {
   try {
-    const data = contactSchema.parse(req.body);
+    const data = req.body;
 
     await sendContactEmail(data);
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
-      message: "Inquiry sent successfully",
+      message:
+        "Thank you for contacting Goyama Solar. Our team will get back to you shortly.",
     });
-  } catch (err) {
-    next(err);
+
+  } catch (error) {
+
+    console.error("Email Error:", error);
+
+    return res.status(503).json({
+      success: false,
+      message:
+        "We're currently unable to process your inquiry. Please try again later or email us directly at info@goyamasolar.com.",
+    });
+
   }
 });
 

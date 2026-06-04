@@ -1,7 +1,5 @@
-const sgMail = require("@sendgrid/mail");
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
+const { Resend } = require("resend");
+const resend = new Resend(process.env.RESEND_API_KEY);
 const escapeHtml = (str = "") =>
   str
     .replace(/&/g, "&amp;")
@@ -20,12 +18,12 @@ const sendContactEmail = async (data) => {
       message: escapeHtml(data.message),
     };
 
-    // Admin email
-    await sgMail.send({
+    // Admin Email
+    const adminEmail = await resend.emails.send({
+     from: "Goyama Solar <info@goyamasolar.com>",
       to: process.env.CONTACT_RECEIVER,
-      from: "info@goyamasolar.com", // must verify this domain
-      subject: `New Inquiry from ${safeData.name}`,
       replyTo: safeData.email,
+      subject: `New Inquiry from ${safeData.name}`,
       html: `
         <h2>New Contact Inquiry</h2>
         <p><b>Name:</b> ${safeData.name}</p>
@@ -35,12 +33,14 @@ const sendContactEmail = async (data) => {
         <p><b>Message:</b><br/>${safeData.message}</p>
       `,
     });
+    console.log("ADMIN EMAIL RESPONSE:", adminEmail);
 
-    await sgMail.send({
+    // Auto Reply Email
+  const customerEmail = await resend.emails.send({
+     from: "Goyama Solar <info@goyamasolar.com>",
       to: safeData.email,
-      from: "info@goyamasolar.com",
       subject: "Inquiry Received – Goyama Solar",
-      html: `
+      html:`
 <div style="font-family: Arial, sans-serif; color:#333; padding:20px;">
 
   <p style="font-size:16px;">Dear ${safeData.name},</p>
@@ -141,9 +141,11 @@ const sendContactEmail = async (data) => {
 </table>
 `,
     });
+    console.log("CUSTOMER EMAIL RESPONSE:", customerEmail);
+
     return { success: true };
   } catch (error) {
-    console.error("SendGrid Error:", error.response?.body || error);
+    console.error("SMTP Error:", error);
     throw new Error("Failed to send email");
   }
 };
