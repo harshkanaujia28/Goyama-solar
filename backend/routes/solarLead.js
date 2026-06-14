@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
+const dns = require("dns");
+
+dns.setDefaultResultOrder("ipv4first");
 
 router.post("/", async (req, res) => {
   try {
@@ -10,6 +13,11 @@ router.post("/", async (req, res) => {
       port: 587,
       secure: false,
       requireTLS: true,
+
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
+
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
