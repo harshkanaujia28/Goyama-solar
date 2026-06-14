@@ -5,14 +5,24 @@ const dns = require("dns");
 
 dns.setDefaultResultOrder("ipv4first");
 
+
 router.post("/", async (req, res) => {
   try {
+    const dns = require("dns").promises;
+
+    const records = await dns.lookup("smtp.gmail.com", {
+      all: true,
+      family: 4,
+    });
+    console.log("GMAIL IPV4:", records);
     const { lead, calculator, result } = req.body;
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
       secure: false,
       requireTLS: true,
+
+      family: 4,
 
       connectionTimeout: 10000,
       greetingTimeout: 10000,
@@ -64,11 +74,11 @@ router.post("/", async (req, res) => {
         <p><b>Net Investment:</b> ₹${Math.round(result.netInvestment)}</p>
       `,
     });
-
+ console.log("MAIL SENT");
     return res.status(200).json({
       success: true,
     });
-    console.log("MAIL SENT");
+   
   } catch (error) {
     console.error(error);
 
