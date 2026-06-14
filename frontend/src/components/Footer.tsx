@@ -70,6 +70,7 @@ const Footer = () => (
               { label: "Products", path: "/products" },
               { label: "Certifications", path: "/certifications" },
               { label: "Vision & Mission", path: "/vision-mission" },
+              { label: "Blog", path: "/blog" },
               { label: "Contact Us", path: "/contact" },
             ].map((l) => (
               <li key={l.path}>

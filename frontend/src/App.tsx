@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 
 import IntroAnimation from "./components/IntroAnimation";
+import SolarCalculator from "./pages/SolarCalculator";
 import Layout from "./components/Layout";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -20,52 +21,49 @@ import VisionMission from "./pages/VisionMission";
 import Certifications from "./pages/Certifications";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import FloatingSolarCalculator from "./components/FloatingSolarCalculator";
+import GoyamaBlogPost from "./pages/GoyamaBlogPost";
+
+import Blog from "./pages/Blog";
 
 const queryClient = new QueryClient();
 
 /* ---------------- AppRoutes ---------------- */
 
 function AppRoutes() {
-  const location = useLocation();
-  const [loading, setLoading] = useState(true);
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  // First load animation
   useEffect(() => {
-    const handleLoad = () => {
-      setTimeout(() => {
-        setLoading(false);
-        setIsFirstLoad(false);
-      }, 4000); // 🔥 match your real video duration
-    };
+    const lastSeen = localStorage.getItem("goyama_intro");
 
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-      return () => window.removeEventListener("load", handleLoad);
+    const now = Date.now();
+
+    const shouldShow =
+      !lastSeen ||
+      now - Number(lastSeen) > 30 * 60 * 1000;
+
+    if (shouldShow) {
+      setLoading(true);
+
+      localStorage.setItem(
+        "goyama_intro",
+        now.toString()
+      );
+
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 4000);
+
+      return () => clearTimeout(timer);
     }
   }, []);
-
-  // Route change animation (skip first render)
-  useEffect(() => {
-    if (isFirstLoad) return;
-
-    setLoading(true);
-
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 4000); // 🔥 match video duration
-
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
 
   return (
     <>
       <IntroAnimation visible={loading} />
 
       <Layout>
-        <Routes location={location}>
+        <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/manufacturing" element={<Manufacturing />} />
@@ -73,8 +71,12 @@ function AppRoutes() {
           <Route path="/vision-mission" element={<VisionMission />} />
           <Route path="/certifications" element={<Certifications />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/solar-calculator" element={<SolarCalculator />} />
+           <Route path="/blog" element={<Blog />} />
+           <Route path="/blog/indian-manufacturer-vs-imports-2026" element={<GoyamaBlogPost />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <FloatingSolarCalculator />
       </Layout>
     </>
   );

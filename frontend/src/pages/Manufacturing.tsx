@@ -3,6 +3,7 @@ import { Cpu, Bot, ShieldCheck, Leaf, ArrowRight } from "lucide-react";
 import SectionHeading from "../components/SectionHeading";
 import facilityHero from "@/assets/facility-hero.jpg";
 import manufacturingInterior from "@/assets/manufacturing-interior.jpg";
+import { Sparkles } from "lucide-react";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -22,12 +23,22 @@ const timelineSteps = [
 
 const Manufacturing = () => (
   <div>
-    <section className="gradient-bg py-20">
-      <div className="container-section text-center">
-        <motion.h1 {...fadeUp} className="heading-xl text-primary-foreground">Manufacturing Facility</motion.h1>
-        <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="body-lg text-primary-foreground/80 mt-4 max-w-2xl mx-auto">
-          300,000 sq ft of cutting-edge solar manufacturing technology.
-        </motion.p>
+  <section className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-20 section-alt">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full opacity-20 blur-3xl pointer-events-none"
+        style={{ background: "radial-gradient(circle, hsl(27 100% 50%) 0%, transparent 70%)" }} />
+      <div className="container-section relative">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-6">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-sm text-primary font-medium">India's Trusted Solar Manufacturer</span>
+          </div>
+          <h1 className="heading-xl mb-5">
+            Manufacturing <span className="gradient-text">Facility</span>
+          </h1>
+          <p className="body-lg text-muted-foreground">
+            300,000 sq ft of cutting-edge solar manufacturing technology.
+          </p>
+        </motion.div>
       </div>
     </section>
 

@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Products", path: "/products" },
   { label: "Vision & Mission", path: "/vision-mission" },
   { label: "Certifications", path: "/certifications" },
+  { label: "Solar Calculator", path: "/solar-calculator" },
   { label: "Contact", path: "/contact" },
 ];
 
@@ -36,11 +37,10 @@ const Navbar = () => {
             <li key={link.path}>
               <Link
                 to={link.path}
-                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  location.pathname === link.path
+                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${location.pathname === link.path
                     ? "text-primary font-semibold"
                     : "text-muted-foreground hover:text-foreground"
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>
@@ -81,11 +81,10 @@ const Navbar = () => {
                   <Link
                     to={link.path}
                     onClick={() => setMobileOpen(false)}
-                    className={`block px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                      location.pathname === link.path
+                    className={`block px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${location.pathname === link.path
                         ? "text-primary bg-primary/5"
                         : "text-muted-foreground hover:text-foreground"
-                    }`}
+                      }`}
                   >
                     {link.label}
                   </Link>

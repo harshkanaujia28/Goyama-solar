@@ -135,3 +135,20 @@
     @apply transition-transform duration-200 hover:scale-105;
   }
 }
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.solar-float {
+  animation: floating 2.5s ease-in-out infinite;
+}

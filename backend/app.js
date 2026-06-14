@@ -8,6 +8,7 @@ require("dotenv").config();
 const contactRoute = require("./routes/contact");
 const rateLimit = require("./middleware/rateLimit");
 const errorHandler = require("./middleware/error");
+const solarLeadRoute = require("./routes/solarLead");
 
 const app = express();
 
@@ -58,6 +59,7 @@ app.use(
 ============================= */
 
 app.use("/api/contact", rateLimit, contactRoute);
+app.use("/api/solar-lead", solarLeadRoute);
 
 /* ============================
    4️⃣ Global Error Handler
