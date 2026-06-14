@@ -5,7 +5,6 @@ const dns = require("dns");
 
 dns.setDefaultResultOrder("ipv4first");
 
-
 router.post("/", async (req, res) => {
   try {
     const dns = require("dns").promises;
@@ -17,23 +16,23 @@ router.post("/", async (req, res) => {
     console.log("GMAIL IPV4:", records);
     const { lead, calculator, result } = req.body;
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
+      host: "74.125.199.109",
       port: 465,
-      secure: false,
-      requireTLS: true,
-
-      family: 4,
+      secure: true,
 
       connectionTimeout: 10000,
       greetingTimeout: 10000,
       socketTimeout: 10000,
+
+      tls: {
+        servername: "smtp.gmail.com",
+      },
 
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
     });
-
     console.log("START SMTP VERIFY");
 
     await transporter.verify();
@@ -74,11 +73,10 @@ router.post("/", async (req, res) => {
         <p><b>Net Investment:</b> ₹${Math.round(result.netInvestment)}</p>
       `,
     });
- console.log("MAIL SENT");
+    console.log("MAIL SENT");
     return res.status(200).json({
       success: true,
     });
-   
   } catch (error) {
     console.error(error);
 
