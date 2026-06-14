@@ -88,7 +88,7 @@ const GoyamaBlogPost = () => {
 
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground mb-8">
               <span className="inline-flex items-center gap-1.5"><Calendar size={14} /> June 2026</span>
-              <span className="inline-flex items-center gap-1.5"><User size={14} /> Goyama Editorial</span>
+              <span className="inline-flex items-center gap-1.5"><User size={14} /> Goyama Team</span>
               <span className="inline-flex items-center gap-1.5"><Clock size={14} /> 6 min read</span>
               <span className="inline-flex items-center gap-1.5"><Tag size={14} /> B2B / Dealer</span>
             </div>
