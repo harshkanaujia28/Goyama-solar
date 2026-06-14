@@ -5,14 +5,23 @@ const nodemailer = require("nodemailer");
 router.post("/", async (req, res) => {
   try {
     const { lead, calculator, result } = req.body;
-
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      requireTLS: true,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
     });
+
+    console.log("START SMTP VERIFY");
+
+    await transporter.verify();
+
+    console.log("SMTP VERIFIED");
+    console.log("START MAIL SEND");
 
     await transporter.sendMail({
       from: process.env.SMTP_USER,
@@ -51,6 +60,7 @@ router.post("/", async (req, res) => {
     return res.status(200).json({
       success: true,
     });
+    console.log("MAIL SENT");
   } catch (error) {
     console.error(error);
 
