@@ -47,9 +47,9 @@ const faqs = [
 ];
 
 const related = [
-  { title: "PM Surya Ghar Yojana: Full Subsidy Guide 2026", date: "May 2026" },
-  { title: "TOPCon vs PERC: Which Panel for Your Dealer Stock?", date: "May 2026" },
-  { title: "ALMM List 2026: How to Check Before You Buy", date: "April 2026" },
+  { title: "PM Surya Ghar Yojana: Full Subsidy Guide 2026", date: "june 2026" },
+  // { title: "TOPCon vs PERC: Which Panel for Your Dealer Stock?", date: "May 2026" },
+  // { title: "ALMM List 2026: How to Check Before You Buy", date: "April 2026" },
 ];
 
 const GoyamaBlogPost = () => {
