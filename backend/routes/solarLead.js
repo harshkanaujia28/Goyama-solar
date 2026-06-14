@@ -1,84 +1,87 @@
 const express = require("express");
 const router = express.Router();
-const nodemailer = require("nodemailer");
-const dns = require("dns");
+const { Resend } = require("resend");
 
-dns.setDefaultResultOrder("ipv4first");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 router.post("/", async (req, res) => {
   try {
-    const dns = require("dns").promises;
-
-    const records = await dns.lookup("smtp.gmail.com", {
-      all: true,
-      family: 4,
-    });
-    console.log("GMAIL IPV4:", records);
     const { lead, calculator, result } = req.body;
-    const transporter = nodemailer.createTransport({
-      host: "74.125.199.109",
-      port: 465,
-      secure: true,
 
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 10000,
-
-      tls: {
-        servername: "smtp.gmail.com",
-      },
-
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-    console.log("START SMTP VERIFY");
-
-    await transporter.verify();
-
-    console.log("SMTP VERIFIED");
-    console.log("START MAIL SEND");
-
-    await transporter.sendMail({
-      from: process.env.SMTP_USER,
-      to: "goyamasolar@gmail.com",
+    const { data, error } = await resend.emails.send({
+      from: "Goyama Solar <info@goyamasolar.com>",
+      to: [process.env.CONTACT_RECEIVER],
       replyTo: lead.email,
-      subject: `New Solar Calculator Lead - ${lead.name}`,
+      subject: `⚡ New Solar Calculator Lead - ${lead.name}`,
+
       html: `
-        <h2>New Solar Calculator Lead</h2>
+        <h2>⚡ New Solar Calculator Lead</h2>
 
-        <p><b>Name:</b> ${lead.name}</p>
-        <p><b>Phone:</b> ${lead.phone}</p>
-        <p><b>Email:</b> ${lead.email}</p>
-        <p><b>City:</b> ${lead.city}</p>
+        <h3>Customer Details</h3>
+        <p><strong>Name:</strong> ${lead.name}</p>
+        <p><strong>Phone:</strong> ${lead.phone}</p>
+        <p><strong>Email:</strong> ${lead.email}</p>
+        <p><strong>City:</strong> ${lead.city}</p>
 
-        <hr/>
+        <hr />
 
-        <p><b>Monthly Bill:</b> ₹${calculator.monthlyBill}</p>
-        <p><b>State:</b> ${calculator.state}</p>
-        <p><b>Consumer Type:</b> ${calculator.consumerType}</p>
-        <p><b>Panel Type:</b> ${calculator.panelType}</p>
-        <p><b>Roof Type:</b> ${calculator.roofType}</p>
+        <h3>Calculator Inputs</h3>
+        <p><strong>Monthly Bill:</strong> ₹${calculator.monthlyBill}</p>
+        <p><strong>State:</strong> ${calculator.state}</p>
+        <p><strong>Consumer Type:</strong> ${calculator.consumerType}</p>
+        <p><strong>Panel Type:</strong> ${calculator.panelType}</p>
+        <p><strong>Roof Type:</strong> ${calculator.roofType}</p>
 
-        <hr/>
+        <hr />
 
-        <p><b>Capacity:</b> ${result.capacity} kW</p>
-        <p><b>Monthly Savings:</b> ₹${Math.round(result.monthlySavings)}</p>
-        <p><b>Annual Savings:</b> ₹${Math.round(result.annualSavings)}</p>
-        <p><b>Payback:</b> ${result.paybackYears} Years</p>
+        <h3>Solar Recommendation</h3>
+        <p><strong>Recommended Capacity:</strong> ${result.capacity} kW</p>
+        <p><strong>Monthly Savings:</strong> ₹${Math.round(
+          result.monthlySavings
+        )}</p>
+        <p><strong>Annual Savings:</strong> ₹${Math.round(
+          result.annualSavings
+        )}</p>
+        <p><strong>Payback Period:</strong> ${result.paybackYears} Years</p>
 
-        <p><b>System Cost:</b> ₹${Math.round(result.systemCost)}</p>
-        <p><b>Subsidy:</b> ₹${Math.round(result.subsidy)}</p>
-        <p><b>Net Investment:</b> ₹${Math.round(result.netInvestment)}</p>
+        <hr />
+
+        <h3>Financial Summary</h3>
+        <p><strong>System Cost:</strong> ₹${Math.round(
+          result.systemCost
+        )}</p>
+        <p><strong>Subsidy:</strong> ₹${Math.round(
+          result.subsidy
+        )}</p>
+        <p><strong>Net Investment:</strong> ₹${Math.round(
+          result.netInvestment
+        )}</p>
+
+        <hr />
+
+        <p><strong>Lead Generated:</strong> ${new Date().toLocaleString(
+          "en-IN"
+        )}</p>
       `,
     });
-    console.log("MAIL SENT");
+
+    if (error) {
+      console.error("SOLAR LEAD RESEND ERROR:", error);
+
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+
+    console.log("SOLAR LEAD SENT:", data?.id);
+
     return res.status(200).json({
       success: true,
+      message: "Lead submitted successfully",
     });
   } catch (error) {
-    console.error(error);
+    console.error("SOLAR LEAD ERROR:", error);
 
     return res.status(500).json({
       success: false,
