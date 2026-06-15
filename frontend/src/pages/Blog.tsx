@@ -32,8 +32,8 @@ const posts: Post[] = [
   {
     id: 1,
     title: "PM Surya Ghar Yojana 2026: Complete Subsidy Guide for Indian Homeowners",
-   excerpt:
-  "Indian solar manufacturers are rapidly competing with imported modules on price, efficiency, and reliability. Learn how DCR policies, government incentives, warranty coverage, and long-term performance impact your solar investment decision in 2026.",
+    excerpt:
+      "Indian solar manufacturers are rapidly competing with imported modules on price, efficiency, and reliability. Learn how DCR policies, government incentives, warranty coverage, and long-term performance impact your solar investment decision in 2026.",
     category: "Industry Insights",
     author: "Goyama Editorial",
     date: "June 14, 2026",
@@ -41,30 +41,30 @@ const posts: Post[] = [
     image: facilityHero,
     link: "/blog/indian-manufacturer-vs-imports-2026",
   },
-  // {
-  //   id: 2,
-  //   slug: "pm-surya-ghar-yojana-guide",
-  //   title: "Understanding PM Surya Ghar Subsidy: A Complete Guide",
-  //   excerpt:
-  //     "Everything residential consumers need to know about the PM Surya Ghar Muft Bijli Yojana and how to maximize subsidy benefits.",
-  //   category: "Policy & Subsidy",
-  //   author: "Policy Desk",
-  //   date: "May 28, 2026",
-  //   readTime: "8 min read",
-  //   image: solarPanelProduct,
-  // },
-  // {
-  //   id: 3,
-  //   slug: "pm-surya-ghar-yojana-guide",
-  //   title: "Inside Our 300,000 Sq Ft Manufacturing Facility",
-  //   excerpt:
-  //     "A behind-the-scenes look at the automated production lines, quality systems, and people powering Goyama Solar's Munak plant.",
-  //   category: "Inside Goyama",
-  //   author: "Operations Team",
-  //   date: "May 20, 2026",
-  //   readTime: "5 min read",
-  //   image: manufacturingInterior,
-  // },
+  {
+    id: 2,
+    title: "How to Become a Solar Panel Dealer in India: Complete Guide for 2026",
+    excerpt:
+      "Investment, licenses, margins (15–30%) and how to choose the right manufacturer to launch your solar dealership in 2026.",
+    category: "Industry Insights",
+    author: "Goyama Editorial",
+    date: "June 8, 2026",
+    readTime: "7 min read",
+    image: manufacturingInterior,
+    link: "/blog/how-to-become-solar-panel-dealer-india-2026",
+  },
+  {
+    id: 3,
+    title: "TOPCon vs Mono PERC Solar Panels: Which Should Your Customers Buy in 2026?",
+    excerpt:
+      "Efficiency, price, degradation and use cases — a practical dealer's guide to picking between TOPCon and Mono PERC.",
+    category: "Technology",
+    author: "Engineering Team",
+    date: "June 15, 2026",
+    readTime: "7 min read",
+    image: solarPanelProduct,
+    link: "/blog/topcon-vs-monoperc-solar-panels-2026",
+  },
   // {
   //   id: 4,
   //   slug: "pm-surya-ghar-yojana-guide",
@@ -111,27 +111,27 @@ const Blog = () => {
 
 
 
- const filtered = useMemo(
-  () =>
-    posts
-      .filter((p) =>
-        activeCat === "All"
-          ? true
-          : p.category === activeCat
-      )
-      .filter((p) =>
-        query.trim() === ""
-          ? true
-          : (
+  const filtered = useMemo(
+    () =>
+      posts
+        .filter((p) =>
+          activeCat === "All"
+            ? true
+            : p.category === activeCat
+        )
+        .filter((p) =>
+          query.trim() === ""
+            ? true
+            : (
               p.title +
               p.excerpt +
               p.category
             )
               .toLowerCase()
               .includes(query.toLowerCase())
-      ),
-  [query, activeCat]
-);
+        ),
+    [query, activeCat]
+  );
 
   return (
     <div>
