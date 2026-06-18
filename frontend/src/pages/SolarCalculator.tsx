@@ -599,7 +599,7 @@ Net Investment: ${fmtINR(result.netInvestment)}`;
               </div>
 
               <div className="mt-10 grid sm:grid-cols-2 gap-4">
-                <a href="tel:+919999999999"
+                <a href="tel:+919466666257"
                   className="gradient-bg text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-xl hover:shadow-primary/30 transition-all">
                   <Phone className="w-5 h-5" /> Talk to Solar Expert
                 </a>
