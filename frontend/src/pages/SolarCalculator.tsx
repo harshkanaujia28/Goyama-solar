@@ -603,7 +603,7 @@ Net Investment: ${fmtINR(result.netInvestment)}`;
                   className="gradient-bg text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-xl hover:shadow-primary/30 transition-all">
                   <Phone className="w-5 h-5" /> Talk to Solar Expert
                 </a>
-                <a href={`https://wa.me/919999999999?text=${encodeURIComponent(`Hi Goyama Solar, I just generated a proposal for ${result.capacity} kW. Please contact me.`)}`}
+                <a href={`https://wa.me/919466666257?text=${encodeURIComponent(`Hi Goyama Solar, I just generated a proposal for ${result.capacity} kW. Please contact me.`)}`}
                   target="_blank" rel="noreferrer"
                   className="bg-[#25D366] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-xl transition-all">
                   <MessageCircle className="w-5 h-5" /> WhatsApp Us
