@@ -73,14 +73,14 @@ function AppRoutes() {
           <Route path="/vision-mission" element={<VisionMission />} />
           <Route path="/certifications" element={<Certifications />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/solar-calculator" element={<SolarCalculator />} />
+          {/* <Route path="/solar-calculator" element={<SolarCalculator />} /> */}
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/indian-manufacturer-vs-imports-2026" element={<GoyamaBlogPost />} />
           <Route path="/blog/how-to-become-solar-panel-dealer-india-2026" element={<BlogDealerGuide />} />
           <Route path="/blog/topcon-vs-monoperc-solar-panels-2026" element={<BlogTopconVsPerc />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <FloatingSolarCalculator />
+        {/* <FloatingSolarCalculator /> */}
       </Layout>
     </>
   );

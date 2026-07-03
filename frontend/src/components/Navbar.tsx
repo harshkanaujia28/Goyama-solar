@@ -11,7 +11,7 @@ const navLinks = [
   { label: "Products", path: "/products" },
   { label: "Vision & Mission", path: "/vision-mission" },
   { label: "Certifications", path: "/certifications" },
-  { label: "Solar Calculator", path: "/solar-calculator" },
+  // { label: "Solar Calculator", path: "/solar-calculator" },
   { label: "Contact", path: "/contact" },
 ];
 
